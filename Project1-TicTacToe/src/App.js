@@ -1,10 +1,33 @@
 
 import { useState } from "react";
 
-export default function Board() {
+export default function Game(){
 
   const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentHistory = history[history.length - 1];
+
+  function handlePlay (copySquares) {
+    setHistory([...history, copySquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentHistory} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol> {} </ol>
+      </div>
+    </div>
+  );
+}
+
+function Board({xIsNext, squares, onPlay}) {
+
+  // const [xIsNext, setXIsNext] = useState(true);
+  // const [squares, setSquares] = useState(Array(9).fill(null));
 
   const winner = calculateWinner(squares);
   let status;
@@ -17,11 +40,13 @@ export default function Board() {
 
   function handleClick(i){
 
-    if (squares[i] || calculateWinner[squares]) {
+    if (squares[i] || calculateWinner(squares)) {
       return;
     }
 
     const copySquares = squares.slice(); // make a copy of squares array
+    // const copySquares = Array.from(squares);
+    
     if (xIsNext) {
       copySquares[i] = 'X';
     } 
@@ -29,8 +54,7 @@ export default function Board() {
       copySquares [i] = 'O';
     }
 
-    setSquares(copySquares);
-    setXIsNext(!xIsNext);
+    onPlay(copySquares);
   }
 
   return (
@@ -85,3 +109,4 @@ function calculateWinner(squares){
   }
   return null;
 }
+
