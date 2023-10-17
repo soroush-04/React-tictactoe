@@ -16,7 +16,7 @@
 
 This is a tic-tac-toe game which also stores the game's history through the progress and allows player to review the previous moves.
 <br>
-For running the app, navigate to the Project1-TicTacToe directory, then run this commands:
+For running the app, navigate to the Project1-TicTacToe directory, then run these commands:
 - `npm install`
 - `npm start`
 
