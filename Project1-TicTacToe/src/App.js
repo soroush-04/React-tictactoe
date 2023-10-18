@@ -12,18 +12,40 @@ export default function Game(){
     setXIsNext(!xIsNext);
   }
 
+  function jumpTo(nextMove){
+    //
+  }
+
+  const moves = history.map((squares, move) => {
+
+    let moveInfo;
+    if (move > 0){
+      moveInfo = 'Go to move #' + move;
+    }
+    else{
+      moveInfo = "Go to the start point";
+    }
+
+    return(
+      <li>
+        <button onClick={() => jumpTo(move)}> {moveInfo} </button>
+      </li>
+    );
+  });
+
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentHistory} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol> {} </ol>
+        <ol> {moves} </ol>
       </div>
     </div>
   );
 }
 
+/////////////
 function Board({xIsNext, squares, onPlay}) {
 
   // const [xIsNext, setXIsNext] = useState(true);
@@ -81,7 +103,7 @@ function Board({xIsNext, squares, onPlay}) {
   );
 }
 
-
+////////////////
 function Square({value, onSquareClick}){
 
   return (
@@ -89,7 +111,7 @@ function Square({value, onSquareClick}){
   );
 }
 
-
+///////////////
 function calculateWinner(squares){
   const wLines = [
     [0,1,2],
